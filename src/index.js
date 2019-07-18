@@ -1,67 +1,107 @@
 'use strict'
 
 import axios from 'axios'
+import { Deserializer } from 'jsonapi-serializer'
+
+import auth from './auth'
+import getFormSchema from './getFormSchema'
+import requiredResources from './requiredResources'
 
 // @TODO - Tests
 // - Test that I can't remove required resources.
 // - Test that I can override required resources.
 
-// Required resources.
-const requiredResource = {
-  baseFieldOverride: {
-    title: 'Base field override',
-    defaultValue: 'base_field_override--base_field_override',
-    permission: '@TODO'
-  },
+/**
+ * Default options.
+ *
+ * @returns {{auth: {}, resources}}
+ */
+const defaultOptions = () => {
+  const resources = {}
 
-  entityFormDisplay: {
-    title: 'Entity form display',
-    defaultValue: 'entity_form_display--entity_form_display',
-    permission: '@TODO'
-  },
+  // Get required resource defaults.
+  for (const resource in requiredResources) {
+    resources[resource] = requiredResources[resource].defaultValue
+  }
 
-  entityFormMode: {
-    title: 'Entity form mode',
-    defaultValue: 'entity_form_mode--entity_form_mode',
-    permission: '@TODO'
-  },
-
-  entityViewDisplay: {
-    title: 'Entity view display',
-    defaultValue: 'entity_view_display--entity_view_display',
-    permission: '@TODO'
-  },
-
-  entityViewMode: {
-    title: 'Entity view mode',
-    defaultValue: 'entity_view_mode--entity_view_mode',
-    permission: '@TODO'
-  },
-
-  fieldConfig: {
-    title: 'Field config',
-    defaultValue: 'field_config--field_config',
-    permission: '@TODO'
-  },
-
-  fieldStorageConfig: {
-    title: 'Field storage config',
-    defaultValue: 'field_storage_config--field_storage_config',
-    permission: '@TODO'
+  return {
+    auth: null,
+    resources
   }
 }
 
+/**
+ * Drupal JSON:API Entities class.
+ */
 class drupalJSONAPIEntities {
-  constructor(url, options = {}) {
+  /**
+   * Constructor.
+   *
+   * @param url
+   * @param options
+   */
+  constructor(baseURL, options = {}) {
     // Check for URL.
-    if (!url) throw new Error('URL is required.')
+    if (!baseURL) throw new Error('The \'baseURL\' parameter is required.')
 
-    // Set URL in Axios.
-    axios.defaults.baseURL = url
+    this.headers = {
+      Accept: 'application/vnd.api+json',
+      'Content-Type': 'application/vnd.api+json'
+    }
+
+    // Setup Axios.
+    this._axios = axios.create({ baseURL })
+    this._axios.interceptors.request.use(async request => {
+      // Authorize the request.
+      // @TODO - Add support for other auth methods?
+      if (typeof options.auth !== 'undefined') {
+        const oauth = await auth.OAuth2(baseURL, options.auth)
+
+        // Add Authorization header to Axios request.
+        request.headers['Authorization'] = `${oauth.token_type} ${oauth.access_token}`
+
+        // Add Authorization header to subrequests.
+        // if (request.url.startsWith('subrequests')) {
+        //   for (const index in request.data) {
+        //     request.data[index].headers['Authorization'] = `${oauth.token_type} ${oauth.access_token}`
+        //   }
+        // }
+      }
+
+      return request
+    })
+
+    // Setup JSON API Deserializer.
+    this.deserializer = new Deserializer({
+      keyForAttribute: 'underscore_case'
+    })
 
     // Setup options, using default if not provided.
-    this.options = Object.assign(this.defaultOptions(), options)
-    this.options.resources = Object.assign(this.defaultOptions().resources, this.options.resources)
+    this.options = Object.assign(defaultOptions(), options)
+    this.options.resources = Object.assign(defaultOptions().resources, this.options.resources)
+  }
+
+  async getFormSchema(entityType, bundle, mode = 'default') {
+    return getFormSchema(entityType, bundle, mode, { root: this })
+  }
+
+  async getSubrequests(subrequests) {
+    // @TODO - Validate results.
+    const results = await this._axios.post('subrequests?_format=json', subrequests)
+
+    for (const subrequest in results.data) {
+      const result = JSON.parse(results.data[subrequest].body)
+
+      // @TODO - Add better error handinling.
+      // - Display information about required permissions.
+      if (typeof result.errors !== 'undefined') {
+        throw new Error(`${result.errors[0].status} ${result.errors[0].title}: ${result.errors[0].detail}`)
+      }
+
+      results.data[subrequest] = await this.deserializer.deserialize(result)
+    }
+
+    return results.data
   }
 
   /**
@@ -85,8 +125,8 @@ class drupalJSONAPIEntities {
     // - Do we have the correct auth details.
 
     // Ensure the required resources are available.
-    for (const key in requiredResource) {
-      const resource = requiredResource[key]
+    for (const key in requiredResources) {
+      const resource = requiredResources[key]
       const link = this.options.resources[key]
 
       // Error if resource is missing.
@@ -100,37 +140,14 @@ class drupalJSONAPIEntities {
     //     drupalJSONAPIEntities().init().entity('node')->type('article')->form()
     //     drupalJSONAPIEntities().init().getForm('node', 'article')
     //     drupalJSONAPIEntities().init().entity('node')->type('article')->view()
-    this.links = result.data.links
+    // this.resources = {}
+    // for (const resource in result.data.links) {
+    //   this.resources[resource] = new drupalJSONAPIResource(resource, this)
+    // }
 
     return this
   }
 
-  getForm(entity, bundle, mode = 'default') {
-    console.log(mode)
-  }
-
-  defaultOptions() {
-    const resources = {}
-
-    // Get required resource defaults.
-    for (const resource in requiredResource) {
-      resources[resource] = requiredResource[resource].default
-    }
-
-    return {
-      resources
-    }
-  }
 }
 
-(async () => {
-  // eslint-disable-next-line
-  const dje = await new drupalJSONAPIEntities('http://api.dje.localhost/api').init()
-  // dje.getForm()
-  // console.log(dje)
-})().catch(err => {
-  console.log(err)
-})
-// test.getForm('node')
-
-// export default drupalJSONAPIEntities
+export default drupalJSONAPIEntities
