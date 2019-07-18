@@ -15,6 +15,7 @@ class getFormSchema {
 
     this.schema = {
       fields: {},
+      groups: {},
       keys: []
     }
   }
@@ -42,6 +43,30 @@ class getFormSchema {
   fieldExists(field) {
     return typeof this.schema.fields[field] !== 'undefined'
   }
+
+  groupAdd(group, data) {
+    this.schema.groups[group] = data
+  }
+
+  get schemaSorted() {
+    return {
+      fields: this.sortByWeight(this.schema.fields),
+      groups: this.sortByWeight(this.schema.groups),
+      keys: this.schema.keys
+    }
+  }
+
+  sortByWeight(data) {
+    const dataArray = []
+
+    for (const item in data) {
+      dataArray.push(data[item])
+    }
+
+    return dataArray.sort((a, b) => {
+      return a.weight - b.weight
+    })
+  }
 }
 
 export default async (entityType, bundle, mode, context) => {
@@ -59,5 +84,5 @@ export default async (entityType, bundle, mode, context) => {
 
   formSchema.process(subrequestsData)
 
-  return formSchema.schema
+  return formSchema.schemaSorted
 }

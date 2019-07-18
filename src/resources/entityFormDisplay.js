@@ -14,11 +14,22 @@ class entityFormDisplay extends requiredResource {
   }
 
   process(data) {
+    // Store data.
     // @TODO - Validate data.
+    this.data = data[0]
+
+    // Process fields.
+    this.processFields()
+
+    // Process groups.
+    this.processGroups()
+  }
+
+  processFields() {
+    // Iterate over the content region and add fields to schema.
     // @TODO - Add support for regions.
-    // @TODO - Add support for groups.
-    for (const field in data[0].content) {
-      const entityFormDisplay = data[0].content[field]
+    for (const field in this.data.content) {
+      const entityFormDisplay = this.data.content[field]
 
       this.schema.fieldAdd(field, {
         id: field,
@@ -30,6 +41,35 @@ class entityFormDisplay extends requiredResource {
           ? entityFormDisplay.settings
           : {},
       })
+    }
+  }
+
+  processGroups() {
+    if (typeof this.data.third_party_settings.field_group === 'undefined') return
+
+    const groups = this.data.third_party_settings.field_group
+    if (typeof groups !== 'undefined') {
+      for (const groupName in groups) {
+        const group = groups[groupName]
+
+        this.schema.groupAdd(groupName, {
+          id: groupName,
+          children: group.children,
+          label: group.label,
+          weight: group.weight
+        })
+
+        for (const groupField of group.children) {
+          if (!this.schema.fieldExists(groupField)) continue
+
+          this.schema.fieldAdd(groupField, { group: groupName })
+        }
+      }
+
+      // Sort groups.
+      // schema[entity][bundle].groups.sort((a, b) => {
+      //   return a.weight - b.weight
+      // })
     }
   }
 }
