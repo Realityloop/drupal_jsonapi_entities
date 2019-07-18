@@ -54,18 +54,13 @@ class drupalJSONAPIEntities {
     this._axios.interceptors.request.use(async request => {
       // Authorize the request.
       // @TODO - Add support for other auth methods?
-      if (typeof options.auth !== 'undefined') {
+      if (typeof options.auth !== 'undefined' && request.url.startsWith('subrequests')) {
         const oauth = await auth.OAuth2(baseURL, options.auth)
 
-        // Add Authorization header to Axios request.
-        request.headers['Authorization'] = `${oauth.token_type} ${oauth.access_token}`
-
         // Add Authorization header to subrequests.
-        // if (request.url.startsWith('subrequests')) {
-        //   for (const index in request.data) {
-        //     request.data[index].headers['Authorization'] = `${oauth.token_type} ${oauth.access_token}`
-        //   }
-        // }
+        for (const index in request.data) {
+          request.data[index].headers['Authorization'] = `${oauth.token_type} ${oauth.access_token}`
+        }
       }
 
       return request
