@@ -20,7 +20,7 @@ class entityFormDisplay extends requiredResource {
     for (const field in data[0].content) {
       const entityFormDisplay = data[0].content[field]
 
-      this.schema.add(field, {
+      this.schema.fieldAdd(field, {
         id: field,
         type: entityFormDisplay.type,
         weight: entityFormDisplay.weight,

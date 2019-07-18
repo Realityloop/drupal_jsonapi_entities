@@ -22,16 +22,25 @@ class getFormSchema {
   process(data) {
     this.entityFormDisplay.process(data[this.entityFormDisplay.requestId])
     this.fieldConfig.process(data[this.fieldConfig.requestId])
-    // this.fieldStorageConfig.process(data[this.fieldStorageConfig.requestId])
+    this.fieldStorageConfig.process(data[this.fieldStorageConfig.requestId])
   }
 
-  add(field, data) {
-    if (typeof this.schema.fields[field] === 'undefined') {
+  fieldAdd(field, data) {
+    if (!this.fieldExists(field)) {
       this.schema.keys.push(field)
       this.schema.fields[field] = data
     } else {
+      // Remove settings, they're merged seperately.
+      const settings = data.settings
+      delete data.settings
+
       this.schema.fields[field] = Object.assign(this.schema.fields[field], data)
+      this.schema.fields[field].settings = Object.assign(this.schema.fields[field].settings, settings)
     }
+  }
+
+  fieldExists(field) {
+    return typeof this.schema.fields[field] !== 'undefined'
   }
 }
 
