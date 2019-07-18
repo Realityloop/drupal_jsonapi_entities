@@ -87,10 +87,16 @@ class drupalJSONAPIEntities {
     for (const subrequest in results.data) {
       const result = JSON.parse(results.data[subrequest].body)
 
-      // @TODO - Add better error handinling.
-      // - Display information about required permissions.
+      // If error, throw error.
       if (typeof result.errors !== 'undefined') {
         throw new Error(`${result.errors[0].status} ${result.errors[0].title}: ${result.errors[0].detail}`)
+      }
+
+      // Throw error if any items are omitted.
+      // @TODO - Add better error handiling.
+      // - Display information about required permissions.
+      if (typeof result.meta.omitted !== 'undefined') {
+        throw new Error(result.meta.omitted.detail)
       }
 
       results.data[subrequest] = await this.deserializer.deserialize(result)
