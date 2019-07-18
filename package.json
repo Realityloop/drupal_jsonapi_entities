@@ -2,11 +2,12 @@
   "name": "drupal_jsonapi_entities",
   "version": "0.1.0",
   "description": "Drupal JSON:API Entities",
-  "main": "indeex.js",
+  "main": "src/index.js",
   "scripts": {
-    "lint": "eslint src/index.js",
-    "start": "nodemon --exec 'npm run lint && babel-node' src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint src/**/*.js",
+    "start": "npm run dev",
+    "dev": "nodemon --exec 'npm run lint && npm run test && babel-node' src/index.js",
+    "test": "jest"
   },
   "keywords": [
     "drupal",
@@ -26,6 +27,7 @@
     "@babel/node": "^7.5.0",
     "@babel/preset-env": "^7.5.4",
     "eslint": "^6.0.1",
+    "jest": "^24.8.0",
     "nodemon": "^1.19.1"
   }
 }
