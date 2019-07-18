@@ -1,5 +1,7 @@
 class requiredResource {
   constructor(schema) {
+    this.schema = schema
+
     this.entityType = schema.entityType
     this.bundle = schema.bundle
     this.mode = schema.mode

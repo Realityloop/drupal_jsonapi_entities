@@ -12,6 +12,26 @@ class entityFormDisplay extends requiredResource {
   get permission() {
     return 'administer display modes'
   }
+
+  process(data) {
+    // @TODO - Validate data.
+    // @TODO - Add support for regions.
+    // @TODO - Add support for groups.
+    for (const field in data[0].content) {
+      const entityFormDisplay = data[0].content[field]
+
+      this.schema.add(field, {
+        id: field,
+        type: entityFormDisplay.type,
+        weight: entityFormDisplay.weight,
+
+        // Ensure settings is an object, not an array.
+        settings: !Array.isArray(entityFormDisplay.settings)
+          ? entityFormDisplay.settings
+          : {},
+      })
+    }
+  }
 }
 
 export default entityFormDisplay
