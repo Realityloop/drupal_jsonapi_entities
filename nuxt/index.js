@@ -1,3 +1,4 @@
+import { resolve } from 'path'
 import drupalJSONAPIEntities from '..'
 
 export default async function (options) {
@@ -28,6 +29,8 @@ export default async function (options) {
     }
   }
 
-  // console.log(drupalEntities)
-  console.log(schemas.form.media_request)
+  this.addPlugin({
+    src: resolve(__dirname, 'plugin.template.js'),
+    options: { schemas }
+  })
 }
