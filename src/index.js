@@ -105,50 +105,6 @@ class drupalJSONAPIEntities {
     return results.data
   }
 
-  /**
-   * Initialize.
-   * - Connect to Drupal JSON:API.
-   * - Build list of entity resources.
-   *
-   * @returns {Promise<drupalJSONAPIEntities>}
-   */
-  async init() {
-    // Get the root JSON:API endpoint.
-    const result = await axios.get().catch(err => {
-      throw new Error(`GET ${axios.defaults.baseURL}: ${err.response.status}: ${err.response.statusText}`)
-    })
-
-    // @TODO - Authentication.
-    // - Support multiple OAuth 2 methods.
-    // - Auth optional.
-
-    // @TODO - Validation.
-    // - Do we have the correct auth details.
-
-    // Ensure the required resources are available.
-    for (const key in requiredResources) {
-      const resource = requiredResources[key]
-      const link = this.options.resources[key]
-
-      // Error if resource is missing.
-      // @TODO - don't error until all missing resources discovered.
-      if (typeof result.data.links[link] === 'undefined') throw new Error(`Required resource missing: ${resource.title}`)
-    }
-
-    // @TODO - Structure data
-    // - Make it useful, and the basis for the schema
-    // - Make each resource it's own class?
-    //     drupalJSONAPIEntities().init().entity('node')->type('article')->form()
-    //     drupalJSONAPIEntities().init().getForm('node', 'article')
-    //     drupalJSONAPIEntities().init().entity('node')->type('article')->view()
-    // this.resources = {}
-    // for (const resource in result.data.links) {
-    //   this.resources[resource] = new drupalJSONAPIResource(resource, this)
-    // }
-
-    return this
-  }
-
 }
 
 export default drupalJSONAPIEntities
