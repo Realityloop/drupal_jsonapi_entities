@@ -73,6 +73,9 @@ class drupalJSONAPIEntities {
 
     // Setup options, using default if not provided.
     this.options = Object.assign(defaultOptions(), options)
+    // @TODO: options.resources isn't in use yet, or documented. It should be
+    //        available to override the resource name/path for any Drupal
+    //        JSON: API resources.
     this.options.resources = Object.assign(defaultOptions().resources, this.options.resources)
   }
 
