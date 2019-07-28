@@ -98,7 +98,7 @@ class drupalJSONAPIEntities {
       // Throw error if any items are omitted.
       // @TODO - Add better error handiling.
       // - Display information about required permissions.
-      if (typeof result.meta.omitted !== 'undefined') {
+      if (result.meta && typeof result.meta.omitted !== 'undefined') {
         throw new Error(result.meta.omitted.detail)
       }
 
