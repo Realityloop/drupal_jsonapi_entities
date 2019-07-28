@@ -45,7 +45,7 @@ class entityFormDisplay extends requiredResource {
   }
 
   processGroups() {
-    if (typeof this.data.third_party_settings.field_group === 'undefined') return
+    if (!this.data.third_party_settings || !this.data.third_party_settings.field_group) return
 
     const groups = this.data.third_party_settings.field_group
     if (typeof groups !== 'undefined') {
