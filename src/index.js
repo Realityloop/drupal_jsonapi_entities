@@ -5,6 +5,7 @@ import { Deserializer } from 'jsonapi-serializer'
 
 import auth from './auth'
 import getFormSchema from './getFormSchema'
+import getViewSchema from './getViewSchema'
 import requiredResources from './requiredResources'
 
 // @TODO - Tests
@@ -81,6 +82,10 @@ class drupalJSONAPIEntities {
 
   async getFormSchema(entityType, bundle, mode = 'default') {
     return getFormSchema(entityType, bundle, mode, { root: this })
+  }
+
+  async getViewSchema(entityType, bundle, mode = 'default') {
+    return getViewSchema(entityType, bundle, mode, { root: this })
   }
 
   async getSubrequests(subrequests) {
