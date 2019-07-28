@@ -9,6 +9,10 @@
     "dev": "nodemon --exec 'npm run lint && npm run test && babel-node' src/index.js",
     "test": "jest"
   },
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/Realityloop/drupal-jsonapi-entities"
+  },
   "keywords": [
     "drupal",
     "json-api",
