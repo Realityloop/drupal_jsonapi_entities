@@ -65,11 +65,6 @@ class entityFormDisplay extends requiredResource {
           this.schema.fieldAdd(groupField, { group: groupName })
         }
       }
-
-      // Sort groups.
-      // schema[entity][bundle].groups.sort((a, b) => {
-      //   return a.weight - b.weight
-      // })
     }
   }
 }
