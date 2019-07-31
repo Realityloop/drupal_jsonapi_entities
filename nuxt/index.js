@@ -15,7 +15,6 @@ export default async function (options) {
   const entities = this.options.drupalJSONAPIEntities
 
   // Construct the Drupal JSON:API Entities class.
-  // eslint-disable-next-line
   const drupalEntities = new drupalJSONAPIEntities(url, options)
 
   // Iterate over entities and build up schemas.
@@ -23,9 +22,20 @@ export default async function (options) {
   for (const entityType in entities) {
     schemas[entityType] = {}
 
-    const entityTypeBundles = entities[entityType]
-    for (const bundle of entityTypeBundles) {
-      schemas[entityType][bundle] = await drupalEntities.getFormSchema(entityType, bundle)
+    let entityTypeBundles = entities[entityType]
+    if (Array.isArray(entityTypeBundles)) {
+      entityTypeBundles = {}
+      for (const bundle of entities[entityType]) {
+        entityTypeBundles[bundle] = ['default']
+      }
+    }
+
+    for (const bundle in entityTypeBundles) {
+      schemas[entityType][bundle] = {}
+      const modes = entityTypeBundles[bundle]
+      for (const mode of modes) {
+        schemas[entityType][bundle][mode] = await drupalEntities.getFormSchema(entityType, bundle, mode)
+      }
     }
   }
 
