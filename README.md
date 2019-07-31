@@ -1,19 +1,19 @@
 # Drupal JSON:API Entities
 
-[![CircleCI](https://circleci.com/gh/Realityloop/drupal-jsonapi-entities.svg?style=svg)](https://circleci.com/gh/Realityloop/drupal-jsonapi-entities)
+[![CircleCI](https://circleci.com/gh/Realityloop/drupal_jsonapi_entities.svg?style=svg)](https://circleci.com/gh/Realityloop/drupal_jsonapi_entities)
 
 Pull Drupal Entity form and field schemas into your Node.js app with ease.
 
 ## Installation
 
-`$ npm install drupal-jsonapi-entities`
+`$ npm install drupal_jsonapi_entities`
 
 ## Documentation
 
 ### new drupalJSONAPIEntities()
 
 ```js
-import drupalJSONAPIEntities from 'drupal-jsonapi-entities'
+import drupalJSONAPIEntities from 'drupal_jsonapi_entities'
 
 const drupalEntities = new drupalJSONAPIEntities(url, options)
 ```
@@ -23,7 +23,6 @@ The constructor takes two arguments:
 - `url`: The base URL of the Drupal instance.
 - `options`: The API options.
 
-
 #### Available API options (`options` argument)
 
 - **auth**: An array for use authorizing the client with the Drupal instance.
@@ -32,7 +31,6 @@ The constructor takes two arguments:
   - **clientSecret**: The Oauth 2 Client secret.
   - **user**: The Drupal username.
   - **pass**: The Drupal user passsword.
-
 
 ### getFormSchema()
 
@@ -68,11 +66,13 @@ Returns a JSON object:
 #### Drupal requirements
 
 JSON:API resources:
+
 - `entity_form_display--entity_form_display`
 - `field_config--field_config`
 - `field_storage_config--field_storage_config`
 
 Permissions:
+
 - `administer display modes`
 - `administer ENTITY_TYPE fields`
 
@@ -83,7 +83,7 @@ schema.
 
 ### Getting started with Nuxt.js
 
-Add `drupal-jsonapi-entities/nuxt` to the modules section of your
+Add `drupal_jsonapi_entities/nuxt` to the modules section of your
 `nuxt.config.js` file.
 
 ```js
@@ -118,6 +118,6 @@ module.exports = {
 
 The module provides a plugin, which returns the Drupal JSON:API Entities schema.
 
-```
+```js
 this.$drupalJSONAPIEntities()
 ```
