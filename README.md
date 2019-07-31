@@ -111,7 +111,7 @@ Add a `drupalJSONAPIEntities` section to your `nuxt.config.js` file.
 ```js
 module.exports = {
   drupalJSONAPIEntities: {
-    'entityType': ['bundle']
+    'entityType': { 'bundle': ['mode'] }
   }
 }
 ```
