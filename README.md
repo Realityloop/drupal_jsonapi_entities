@@ -50,6 +50,7 @@ Returns a JSON object:
   - **cardinality**: Allowed number of values.
   - **description**: Help text.
   - **id**: Machine name.
+  - **property**: True if field is a property on the Drupal entity.
   - **label**: Label.
   - **required**: Required field.
   - **settings**: Merged object of field settings.

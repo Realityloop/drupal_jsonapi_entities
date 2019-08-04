@@ -22,6 +22,7 @@ class fieldConfig extends requiredResource {
       if (!this.schema.fieldExists(field)) continue
 
       this.schema.fieldAdd(field, {
+        property: false,
         label: fieldConfig.label,
         description: fieldConfig.description,
         required: fieldConfig.required,

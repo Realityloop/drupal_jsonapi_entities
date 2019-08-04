@@ -34,6 +34,9 @@ class entityFormDisplay extends requiredResource {
       this.schema.fieldAdd(field, {
         id: field,
         type: entityFormDisplay.type,
+        // We assume field is a property, and update value as needed in
+        // fieldConfig::processFields().
+        property: true,
         weight: entityFormDisplay.weight,
 
         // Ensure settings is an object, not an array.
