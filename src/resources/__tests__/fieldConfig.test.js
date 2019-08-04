@@ -1,4 +1,4 @@
-import fieldStorageConfig from './fieldStorageConfig'
+import fieldConfig from '../fieldConfig'
 
 const schema = {
   entityType: 'node',
@@ -6,12 +6,12 @@ const schema = {
   mode: 'default',
   headers: {}
 }
-const resource = new fieldStorageConfig(schema)
+const resource = new fieldConfig(schema)
 
-test('Resource: Field storage config', () => {
+test('Resource: Field config', () => {
   const subrequest = {
-    requestId: 'node--field_storage_config',
-    uri: '/api/field_storage_config/field_storage_config?filter[entity_type]=node',
+    requestId: 'node--article--field_config',
+    uri: '/api/field_config/field_config?filter[entity_type]=node&filter[bundle]=article',
     action: 'view',
     headers: {}
   }

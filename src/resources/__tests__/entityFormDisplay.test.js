@@ -1,4 +1,4 @@
-import fieldConfig from './fieldConfig'
+import entityFormDisplay from '../entityFormDisplay'
 
 const schema = {
   entityType: 'node',
@@ -6,12 +6,12 @@ const schema = {
   mode: 'default',
   headers: {}
 }
-const resource = new fieldConfig(schema)
+const resource = new entityFormDisplay(schema)
 
-test('Resource: Field config', () => {
+test('Resource: Entity form display', () => {
   const subrequest = {
-    requestId: 'node--article--field_config',
-    uri: '/api/field_config/field_config?filter[entity_type]=node&filter[bundle]=article',
+    requestId: 'node--article--default--entity_form_display',
+    uri: '/api/entity_form_display/entity_form_display?filter[drupal_internal__id]=node.article.default',
     action: 'view',
     headers: {}
   }

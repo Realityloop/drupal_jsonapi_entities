@@ -1,4 +1,4 @@
-import entityFormDisplay from './entityFormDisplay'
+import fieldStorageConfig from '../fieldStorageConfig'
 
 const schema = {
   entityType: 'node',
@@ -6,12 +6,12 @@ const schema = {
   mode: 'default',
   headers: {}
 }
-const resource = new entityFormDisplay(schema)
+const resource = new fieldStorageConfig(schema)
 
-test('Resource: Entity form display', () => {
+test('Resource: Field storage config', () => {
   const subrequest = {
-    requestId: 'node--article--default--entity_form_display',
-    uri: '/api/entity_form_display/entity_form_display?filter[drupal_internal__id]=node.article.default',
+    requestId: 'node--field_storage_config',
+    uri: '/api/field_storage_config/field_storage_config?filter[entity_type]=node',
     action: 'view',
     headers: {}
   }

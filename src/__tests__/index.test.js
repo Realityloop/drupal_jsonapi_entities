@@ -1,4 +1,4 @@
-import drupalJSONAPIEntities from '.'
+import drupalJSONAPIEntities from '..'
 
 const baseURL = 'https://example.com'
 
