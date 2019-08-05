@@ -13,8 +13,8 @@ const schema = {
 }
 const resource = new entityFormDisplay(schema)
 
-describe('Resource: Entity form, display', () => {
-  test('Subrequest', () => {
+describe('Entity form display', () => {
+  test('Resource', () => {
     const subrequest = {
       requestId: 'node--article--default--entity_form_display',
       uri: '/api/entity_form_display/entity_form_display?filter[drupal_internal__id]=node.article.default',
@@ -26,6 +26,8 @@ describe('Resource: Entity form, display', () => {
     expect(resource.uri).toBe(subrequest.uri)
     expect(resource.action).toBe(subrequest.action)
     expect(resource.subrequest).toStrictEqual(subrequest)
+
+    expect(resource.permission).toBe('administer display modes')
   })
 
   test('Process', async () => {
