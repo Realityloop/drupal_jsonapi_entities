@@ -1,6 +1,8 @@
 # Drupal JSON:API Entities
 
 [![CircleCI](https://circleci.com/gh/Realityloop/drupal_jsonapi_entities.svg?style=svg)](https://circleci.com/gh/Realityloop/drupal_jsonapi_entities)
+[![Known Vulnerabilities](https://snyk.io//test/github/Realityloop/drupal_jsonapi_entities/badge.svg?targetFile=package.json)](https://snyk.io//test/github/Realityloop/drupal_jsonapi_entities?targetFile=package.json)
+[![codecov](https://codecov.io/gh/Realityloop/drupal_jsonapi_entities/branch/develop/graph/badge.svg)](https://codecov.io/gh/Realityloop/drupal_jsonapi_entities)
 
 Pull Drupal Entity form and field schemas into your Node.js app with ease.
 
