@@ -1,7 +1,7 @@
-import { Deserializer } from "jsonapi-serializer";
+import { Deserializer } from 'jsonapi-serializer'
 
 import fieldConfig from '../fieldConfig'
-import jsonData from "../__fixtures__/field_config";
+import jsonData from '../__fixtures__/field_config'
 
 const schema = {
   entityType: 'node',

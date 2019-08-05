@@ -3,24 +3,37 @@ import auth from '../auth'
 
 jest.mock('simple-oauth2')
 
+const url = 'https://example.com'
+const options = {
+  clientId: 'clientId',
+  clientSecret: 'clientSecret',
+  user: 'user',
+  pass: 'pass'
+}
+let success = true
+
 describe('Auth', () => {
   test('OAuth2', async () => {
     simpleOAuth2.create.mockReturnValue({
       ownerPassword: {
         // eslint-disable-next-line no-unused-vars
         getToken: async tokenConfig => {
-          return true
+          if (success) return success
+
+          throw new Error('Test failed successfully')
         }
       }
     })
 
-    const result = await auth.OAuth2('http://example.com', {
-      clientId: 'clientId',
-      clientSecret: 'clientSecret',
-      user: 'user',
-      pass: 'pass'
-    })
+    // Test a successful authentication.
+    expect(await auth.OAuth2(url, options)).toBe(true)
 
-    expect(result).toBe(true)
+    // Test a failed authentication.
+    try {
+      success = false
+      await auth.OAuth2(url, options)
+    } catch (err) {
+      expect(err.message).toBe('Access Token Error: Test failed successfully')
+    }
   })
 })

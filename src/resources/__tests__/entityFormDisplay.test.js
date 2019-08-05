@@ -1,4 +1,4 @@
-import { Deserializer } from "jsonapi-serializer";
+import { Deserializer } from 'jsonapi-serializer'
 
 import entityFormDisplay from '../entityFormDisplay'
 import jsonData from '../__fixtures__/entity_form_display'
