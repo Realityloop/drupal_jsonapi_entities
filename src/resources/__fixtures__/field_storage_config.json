@@ -1,0 +1,167 @@
+{
+  "jsonapi": {
+    "version": "1.0",
+    "meta": {
+      "links": {
+        "self": {
+          "href": "http://jsonapi.org/format/1.0/"
+        }
+      }
+    }
+  },
+  "data": [
+    {
+      "type": "field_storage_config--field_storage_config",
+      "id": "37facc03-6605-4a6f-8412-ba3562e239e9",
+      "attributes": {
+        "langcode": "en",
+        "status": true,
+        "dependencies": {
+          "module": [
+            "node",
+            "text"
+          ]
+        },
+        "drupal_internal__id": "node.body",
+        "field_name": "body",
+        "entity_type": "node",
+        "field_storage_config_type": "text_with_summary",
+        "settings": [],
+        "module": "text",
+        "locked": false,
+        "cardinality": 1,
+        "translatable": true,
+        "indexes": [],
+        "persist_with_no_fields": true,
+        "custom_storage": false
+      },
+      "links": {
+        "self": {
+          "href": "http://exmaple.com/api/field_storage_config/field_storage_config/37facc03-6605-4a6f-8412-ba3562e239e9"
+        }
+      }
+    },
+    {
+      "type": "field_storage_config--field_storage_config",
+      "id": "d71c53c4-fcfe-4f8d-ba35-d6f62b886953",
+      "attributes": {
+        "langcode": "en",
+        "status": true,
+        "dependencies": {
+          "module": [
+            "comment",
+            "node"
+          ]
+        },
+        "drupal_internal__id": "node.comment",
+        "field_name": "comment",
+        "entity_type": "node",
+        "field_storage_config_type": "comment",
+        "settings": {
+          "comment_type": "comment"
+        },
+        "module": "comment",
+        "locked": false,
+        "cardinality": 1,
+        "translatable": true,
+        "indexes": [],
+        "persist_with_no_fields": false,
+        "custom_storage": false
+      },
+      "links": {
+        "self": {
+          "href": "http://exmaple.com/api/field_storage_config/field_storage_config/d71c53c4-fcfe-4f8d-ba35-d6f62b886953"
+        }
+      }
+    },
+    {
+      "type": "field_storage_config--field_storage_config",
+      "id": "6769262d-0c9c-42db-a500-c3becf154d1b",
+      "attributes": {
+        "langcode": "en",
+        "status": true,
+        "dependencies": {
+          "module": [
+            "file",
+            "image",
+            "node"
+          ]
+        },
+        "drupal_internal__id": "node.field_image",
+        "field_name": "field_image",
+        "entity_type": "node",
+        "field_storage_config_type": "image",
+        "settings": {
+          "uri_scheme": "public",
+          "default_image": {
+            "uuid": null,
+            "alt": "",
+            "title": "",
+            "width": null,
+            "height": null
+          },
+          "target_type": "file",
+          "display_field": false,
+          "display_default": false
+        },
+        "module": "image",
+        "locked": false,
+        "cardinality": 1,
+        "translatable": true,
+        "indexes": {
+          "target_id": [
+            "target_id"
+          ]
+        },
+        "persist_with_no_fields": false,
+        "custom_storage": false
+      },
+      "links": {
+        "self": {
+          "href": "http://exmaple.com/api/field_storage_config/field_storage_config/6769262d-0c9c-42db-a500-c3becf154d1b"
+        }
+      }
+    },
+    {
+      "type": "field_storage_config--field_storage_config",
+      "id": "dae00977-1013-4d5f-a16d-dc305762af07",
+      "attributes": {
+        "langcode": "en",
+        "status": true,
+        "dependencies": {
+          "module": [
+            "node",
+            "taxonomy"
+          ]
+        },
+        "drupal_internal__id": "node.field_tags",
+        "field_name": "field_tags",
+        "entity_type": "node",
+        "field_storage_config_type": "entity_reference",
+        "settings": {
+          "target_type": "taxonomy_term"
+        },
+        "module": "core",
+        "locked": false,
+        "cardinality": -1,
+        "translatable": true,
+        "indexes": [],
+        "persist_with_no_fields": false,
+        "custom_storage": false
+      },
+      "links": {
+        "self": {
+          "href": "http://exmaple.com/api/field_storage_config/field_storage_config/dae00977-1013-4d5f-a16d-dc305762af07"
+        }
+      }
+    }
+  ],
+  "meta": {
+    "count": 4
+  },
+  "links": {
+    "self": {
+      "href": "http://exmaple.com/api/field_storage_config/field_storage_config?filter%5Bentity_type%5D=node"
+    }
+  }
+}
