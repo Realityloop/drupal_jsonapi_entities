@@ -1,0 +1,203 @@
+{
+  "jsonapi": {
+    "version": "1.0",
+    "meta": {
+      "links": {
+        "self": {
+          "href": "http://jsonapi.org/format/1.0/"
+        }
+      }
+    }
+  },
+  "data": [
+    {
+      "type": "field_config--field_config",
+      "id": "d0eda8da-2f1d-4bf4-94f9-017e8bedc427",
+      "attributes": {
+        "langcode": "en",
+        "status": true,
+        "dependencies": {
+          "config": [
+            "field.storage.node.body",
+            "node.type.article"
+          ],
+          "module": [
+            "text"
+          ]
+        },
+        "drupal_internal__id": "node.article.body",
+        "field_name": "body",
+        "entity_type": "node",
+        "bundle": "article",
+        "label": "Body",
+        "description": "",
+        "required": false,
+        "translatable": true,
+        "default_value": [],
+        "default_value_callback": "",
+        "settings": {
+          "display_summary": true
+        },
+        "field_type": "text_with_summary"
+      },
+      "links": {
+        "self": {
+          "href": "http://exmaple.com/api/field_config/field_config/d0eda8da-2f1d-4bf4-94f9-017e8bedc427"
+        }
+      }
+    },
+    {
+      "type": "field_config--field_config",
+      "id": "174b6d3a-12c6-4a74-aceb-af99b4c32a47",
+      "attributes": {
+        "langcode": "en",
+        "status": true,
+        "dependencies": {
+          "config": [
+            "field.storage.node.comment",
+            "node.type.article"
+          ],
+          "module": [
+            "comment"
+          ]
+        },
+        "drupal_internal__id": "node.article.comment",
+        "field_name": "comment",
+        "entity_type": "node",
+        "bundle": "article",
+        "label": "Comments",
+        "description": "",
+        "required": false,
+        "translatable": true,
+        "default_value": [
+          {
+            "status": 2,
+            "cid": 0,
+            "last_comment_name": null,
+            "last_comment_timestamp": 0,
+            "last_comment_uid": 0,
+            "comment_count": 0
+          }
+        ],
+        "default_value_callback": "",
+        "settings": {
+          "default_mode": 1,
+          "per_page": 50,
+          "form_location": true,
+          "anonymous": 0,
+          "preview": 1
+        },
+        "field_type": "comment"
+      },
+      "links": {
+        "self": {
+          "href": "http://exmaple.com/api/field_config/field_config/174b6d3a-12c6-4a74-aceb-af99b4c32a47"
+        }
+      }
+    },
+    {
+      "type": "field_config--field_config",
+      "id": "86dfff4f-3c8c-425b-acb5-1aaf5b456c43",
+      "attributes": {
+        "langcode": "en",
+        "status": true,
+        "dependencies": {
+          "config": [
+            "field.storage.node.field_image",
+            "node.type.article"
+          ],
+          "module": [
+            "image"
+          ]
+        },
+        "drupal_internal__id": "node.article.field_image",
+        "field_name": "field_image",
+        "entity_type": "node",
+        "bundle": "article",
+        "label": "Image",
+        "description": "",
+        "required": false,
+        "translatable": true,
+        "default_value": [],
+        "default_value_callback": "",
+        "settings": {
+          "file_directory": "[date:custom:Y]-[date:custom:m]",
+          "file_extensions": "png gif jpg jpeg",
+          "max_filesize": "",
+          "max_resolution": "",
+          "min_resolution": "",
+          "alt_field": true,
+          "title_field": false,
+          "alt_field_required": true,
+          "title_field_required": false,
+          "default_image": {
+            "uuid": null,
+            "alt": "",
+            "title": "",
+            "width": null,
+            "height": null
+          },
+          "handler": "default:file",
+          "handler_settings": []
+        },
+        "field_type": "image"
+      },
+      "links": {
+        "self": {
+          "href": "http://exmaple.com/api/field_config/field_config/86dfff4f-3c8c-425b-acb5-1aaf5b456c43"
+        }
+      }
+    },
+    {
+      "type": "field_config--field_config",
+      "id": "237c3d4c-0734-4692-aedb-c957bc72b4a6",
+      "attributes": {
+        "langcode": "en",
+        "status": true,
+        "dependencies": {
+          "config": [
+            "field.storage.node.field_tags",
+            "node.type.article",
+            "taxonomy.vocabulary.tags"
+          ]
+        },
+        "drupal_internal__id": "node.article.field_tags",
+        "field_name": "field_tags",
+        "entity_type": "node",
+        "bundle": "article",
+        "label": "Tags",
+        "description": "Enter a comma-separated list. For example: Amsterdam, Mexico City, \"Cleveland, Ohio\"",
+        "required": false,
+        "translatable": true,
+        "default_value": [],
+        "default_value_callback": "",
+        "settings": {
+          "handler": "default:taxonomy_term",
+          "handler_settings": {
+            "target_bundles": {
+              "tags": "tags"
+            },
+            "sort": {
+              "field": "_none"
+            },
+            "auto_create": true
+          }
+        },
+        "field_type": "entity_reference"
+      },
+      "links": {
+        "self": {
+          "href": "http://exmaple.com/api/field_config/field_config/237c3d4c-0734-4692-aedb-c957bc72b4a6"
+        }
+      }
+    }
+  ],
+  "meta": {
+    "count": 4
+  },
+  "links": {
+    "self": {
+      "href": "http://exmaple.com/api/field_config/field_config?filter%5Bbundle%5D=article&filter%5Bentity_type%5D=node"
+    }
+  }
+}

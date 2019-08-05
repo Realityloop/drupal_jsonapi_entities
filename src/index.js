@@ -85,6 +85,7 @@ class drupalJSONAPIEntities {
 
   async getSubrequests(subrequests) {
     // @TODO - Validate results.
+    //   - Ensure expected resource type is returned.
     const results = await this._axios.post('subrequests?_format=json', subrequests)
 
     for (const subrequest in results.data) {
