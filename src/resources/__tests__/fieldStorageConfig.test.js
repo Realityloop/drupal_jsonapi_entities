@@ -1,7 +1,7 @@
-import { Deserializer } from "jsonapi-serializer";
+import { Deserializer } from 'jsonapi-serializer'
 
 import fieldStorageConfig from '../fieldStorageConfig'
-import jsonData from "../__fixtures__/field_storage_config";
+import jsonData from '../__fixtures__/field_storage_config'
 
 const schema = {
   entityType: 'node',
@@ -14,8 +14,8 @@ const schema = {
 }
 const resource = new fieldStorageConfig(schema)
 
-describe('Resource: Field storage config', () => {
-  test('Subrequest', () => {
+describe('Field storage config', () => {
+  test('Resource', () => {
     const subrequest = {
       requestId: 'node--field_storage_config',
       uri: '/api/field_storage_config/field_storage_config?filter[entity_type]=node',
@@ -27,6 +27,8 @@ describe('Resource: Field storage config', () => {
     expect(resource.uri).toBe(subrequest.uri)
     expect(resource.action).toBe(subrequest.action)
     expect(resource.subrequest).toStrictEqual(subrequest)
+
+    expect(resource.permission).toBe('administer node fields')
   })
 
   test('Process', async () => {

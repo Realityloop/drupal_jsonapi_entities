@@ -1,7 +1,7 @@
-import { Deserializer } from "jsonapi-serializer";
+import { Deserializer } from 'jsonapi-serializer'
 
 import fieldConfig from '../fieldConfig'
-import jsonData from "../__fixtures__/field_config";
+import jsonData from '../__fixtures__/field_config'
 
 const schema = {
   entityType: 'node',
@@ -14,8 +14,8 @@ const schema = {
 }
 const resource = new fieldConfig(schema)
 
-describe('Resource: Field config', () => {
-  test('Subrequest', () => {
+describe('Field config', () => {
+  test('Resource', () => {
     const subrequest = {
       requestId: 'node--article--field_config',
       uri: '/api/field_config/field_config?filter[entity_type]=node&filter[bundle]=article',
@@ -27,6 +27,8 @@ describe('Resource: Field config', () => {
     expect(resource.uri).toBe(subrequest.uri)
     expect(resource.action).toBe(subrequest.action)
     expect(resource.subrequest).toStrictEqual(subrequest)
+
+    expect(resource.permission).toBe('administer node fields')
   })
 
 
