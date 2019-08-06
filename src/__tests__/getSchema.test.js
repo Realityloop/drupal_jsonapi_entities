@@ -15,6 +15,15 @@ describe('getSchema', () => {
     expect(schema.bundle).toBe('article')
     expect(schema.mode).toBe('default')
     expect(schema.headers).toStrictEqual({})
+
+    // Add mock resource and test processing.
+    schema.resources = [{
+      requestId: 'test',
+      process: data => {
+        expect(data).toStrictEqual({ process: true })
+      }
+    }]
+    schema.process({ test: { process: true} })
   })
 
   test('fields', () => {
