@@ -9,7 +9,10 @@ const schema = {
   mode: 'default',
   headers: {},
   fields: {},
-  fieldAdd: (field, config) => schema.fields[field] = config
+  groups: {},
+  fieldAdd: (field, config) => schema.fields[field] = config,
+  fieldExists: field => !!schema.fields[field],
+  groupAdd: (group, config) => schema.groups[group] = config
 }
 const resource = new entityFormDisplay(schema)
 
@@ -50,6 +53,38 @@ describe('Entity form display', () => {
         rows: 9,
         summary_rows: 3,
         placeholder: ''
+      }
+    })
+  })
+
+  test('Process', async () => {
+    // Prepare mock data.
+    const deserializer = new Deserializer({
+      keyForAttribute: 'underscore_case'
+    })
+    const data = await deserializer.deserialize(jsonData)
+
+    // Add mock group data.
+    data[0].third_party_settings = {
+      field_group: {
+        test: {
+          children: ['body', 'nonexistant'],
+          label: 'Test',
+          weight: 1
+        }
+      }
+    }
+
+    // Process mock data.
+    resource.process(data)
+
+    expect(schema.fields.body.group).toBe('test')
+    expect(schema.groups).toStrictEqual({
+      test: {
+        children: ['body', 'nonexistant'],
+        id: 'test',
+        label: 'Test',
+        weight: 1
       }
     })
   })
