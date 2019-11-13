@@ -1,6 +1,6 @@
-import requiredResource from './requiredResource'
+import resourceBase from './resourceBase'
 
-class entityViewDisplay extends requiredResource {
+class entityViewDisplay extends resourceBase {
   get requestId() {
     return `${this.entityType}--${this.bundle}--${this.mode}--entity_view_display`
   }
@@ -13,25 +13,16 @@ class entityViewDisplay extends requiredResource {
     return 'administer display modes'
   }
 
-  process(data) {
-    // Store data.
-    // @TODO - Validate data.
-    this.data = data[0]
+  processFields(json) {
+    const fields = {}
 
-    // Process fields.
-    this.processFields()
-
-    // Process groups.
-    this.processGroups()
-  }
-
-  processFields() {
     // Iterate over the content region and add fields to schema.
-    // @TODO - Add support for regions.
-    for (const field in this.data.content) {
-      const entityViewDisplay = this.data.content[field]
+    // @TODO - Add support for regions.)
+    for (const field in json[0].content) {
+      // eslint-disable-next-line
+      const entityViewDisplay = json[0].content[field]
 
-      this.schema.fieldAdd(field, {
+      fields[field] = {
         id: field,
         labelPosition: entityViewDisplay.label,
         type: entityViewDisplay.type,
@@ -43,8 +34,10 @@ class entityViewDisplay extends requiredResource {
           : {},
 
         thirdPartySettings: entityViewDisplay.third_party_settings
-      })
+      }
     }
+
+    return fields
   }
 }
 

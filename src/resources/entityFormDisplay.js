@@ -1,6 +1,6 @@
-import requiredResource from './requiredResource'
+import resourceBase from './resourceBase'
 
-class entityFormDisplay extends requiredResource {
+class entityFormDisplay extends resourceBase {
   get requestId() {
     return `${this.entityType}--${this.bundle}--${this.mode}--entity_form_display`
   }
@@ -13,25 +13,15 @@ class entityFormDisplay extends requiredResource {
     return 'administer display modes'
   }
 
-  process(data) {
-    // Store data.
-    // @TODO - Validate data.
-    this.data = data[0]
+  processFields(json) {
+    const fields = {}
 
-    // Process fields.
-    this.processFields()
-
-    // Process groups.
-    this.processGroups()
-  }
-
-  processFields() {
     // Iterate over the content region and add fields to schema.
     // @TODO - Add support for regions.
-    for (const field in this.data.content) {
-      const entityFormDisplay = this.data.content[field]
+    for (const field in json[0].content) {
+      const entityFormDisplay = json[0].content[field]
 
-      this.schema.fieldAdd(field, {
+      fields[field] = {
         id: field,
         type: entityFormDisplay.type,
         // We assume field is a property, and update value as needed in
@@ -43,8 +33,10 @@ class entityFormDisplay extends requiredResource {
         settings: !Array.isArray(entityFormDisplay.settings)
           ? entityFormDisplay.settings
           : {},
-      })
+      }
     }
+
+    return fields
   }
 }
 

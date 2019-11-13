@@ -1,6 +1,6 @@
-import requiredResource from './requiredResource'
+import resourceBase from './resourceBase'
 
-class fieldStorageConfig extends requiredResource {
+class fieldStorageConfig extends resourceBase {
   get requestId() {
     return `${this.entityType}--field_storage_config`
   }
@@ -13,19 +13,21 @@ class fieldStorageConfig extends requiredResource {
     return `administer ${this.entityType} fields`
   }
 
-  process(data) {
+  processFields(json) {
+    const fields = {}
+
     // @TODO - Validate data.
-    for (const fieldStorageConfig of data) {
+    for (const fieldStorageConfig of json) {
       const field = fieldStorageConfig.field_name
 
-      // Skip field if it doesn't already exist from Entity Form Display.
-      if (!this.schema.fieldExists(field)) continue
-
-      this.schema.fieldAdd(field, {
+      fields[field] = {
+        id: field,
         cardinality: fieldStorageConfig.cardinality,
         settings: fieldStorageConfig.settings
-      })
+      }
     }
+
+    return fields
   }
 }
 
