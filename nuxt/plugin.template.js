@@ -1,9 +1,13 @@
-import Vue from 'vue'
-
 // Parse raw schema JSON.
 // @TODO - Dynamically load from cached JSON files?
 const schemas = <%= JSON.stringify(options.schemas) %>
 
-Vue.prototype.$drupalJSONAPIEntities = () => {
-  return schemas
+export default {
+  install (Vue, options) {
+    // eslint-disable-next-line
+    console.log('install')
+    Vue.prototype.$drupalJSONAPIEntities = () => {
+      return schemas
+    }
+  }
 }

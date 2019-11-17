@@ -41,6 +41,7 @@ export default async function (options) {
 
   this.addPlugin({
     src: resolve(__dirname, 'plugin.template.js'),
+    fileName: 'drupalJSONAPIEntities.js',
     options: { schemas }
   })
 }
