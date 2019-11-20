@@ -38,7 +38,7 @@ class schemaBase {
 
     // Process groups if callback is available.
     if (typeof this.processGroups === 'function') {
-      this.groups = new Groups(this.processFields())
+      this.groups = new Groups(this.processGroups())
     }
   }
 

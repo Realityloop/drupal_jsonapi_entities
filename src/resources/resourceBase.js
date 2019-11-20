@@ -43,8 +43,14 @@ class resourceBase {
 
     // Process groups if callback is available.
     if (typeof this.processGroups === 'function') {
-      this.groups = this.processGroups(json)
-      result.groups = this.groups
+      const groupResults = this.processGroups(json)
+      if (typeof groupResults.fields === 'object' && typeof result.fields === 'object') {
+        for (const groupField in groupResults.fields) {
+          Object.assign(result.fields[groupField], groupResults.fields[groupField])
+        }
+        this.fields = result.fields
+      }
+      this.groups = result.groups = groupResults.groups
     }
 
     // Return a result, or FALSE if empty.
@@ -53,30 +59,6 @@ class resourceBase {
     }
     return result
   }
-
-  // processGroups() {
-  //   if (!this.data.third_party_settings || !this.data.third_party_settings.field_group) return
-  //
-  //   const groups = this.data.third_party_settings.field_group
-  //   if (typeof groups !== 'undefined') {
-  //     for (const groupName in groups) {
-  //       const group = groups[groupName]
-  //
-  //       this.schema.groupAdd(groupName, {
-  //         id: groupName,
-  //         children: group.children,
-  //         label: group.label,
-  //         weight: group.weight
-  //       })
-  //
-  //       for (const groupField of group.children) {
-  //         if (!this.schema.fieldExists(groupField)) continue
-  //
-  //         this.schema.fieldAdd(groupField, { group: groupName })
-  //       }
-  //     }
-  //   }
-  // }
 }
 
 export default resourceBase

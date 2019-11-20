@@ -32,7 +32,7 @@ test('Required resource', () => {
   // Test 'process' with custom callbacks and data.
   resource.validateJson = () => true
   resource.processFields = json => json.fields
-  resource.processGroups = json => json.groups
+  resource.processGroups = json => ({ groups: json.groups })
   expect(resource.process({ fields: true, groups: true})).toStrictEqual({
     fields: true,
     groups: true

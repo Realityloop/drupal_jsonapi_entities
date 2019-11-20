@@ -45,6 +45,10 @@ class formSchema extends schemaBase {
 
     return fields
   }
+
+  processGroups() {
+    return this.resources[0].groups
+  }
 }
 
 export default formSchema

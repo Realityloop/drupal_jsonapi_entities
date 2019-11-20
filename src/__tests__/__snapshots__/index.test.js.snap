@@ -40,6 +40,7 @@ Object {
   "field_cooking_time": Object {
     "cardinality": 1,
     "description": "",
+    "group": "group_meta",
     "id": "field_cooking_time",
     "label": "Cooking time",
     "property": false,
@@ -138,6 +139,7 @@ Object {
   "field_preparation_time": Object {
     "cardinality": 1,
     "description": "",
+    "group": "group_meta",
     "id": "field_preparation_time",
     "label": "Preparation time",
     "property": false,

@@ -38,6 +38,31 @@ class entityFormDisplay extends resourceBase {
 
     return fields
   }
+
+  processGroups(json) {
+    if (!json[0].third_party_settings || !json[0].third_party_settings.field_group) return {}
+
+    const groups = {}
+    const fields = {}
+    for (const groupName in json[0].third_party_settings.field_group) {
+      const group = json[0].third_party_settings.field_group[groupName]
+
+      groups[groupName] = {
+        id: groupName,
+        children: group.children,
+        label: group.label,
+        weight: group.weight,
+        format_type: group.format_type,
+        format_settings: group.format_settings
+      }
+
+      for (const groupField of group.children) {
+        fields[groupField] = { group: groupName }
+      }
+    }
+
+    return { fields, groups }
+  }
 }
 
 export default entityFormDisplay

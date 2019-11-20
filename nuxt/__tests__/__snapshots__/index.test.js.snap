@@ -45,6 +45,7 @@ Object {
             "field_cooking_time": Object {
               "cardinality": 1,
               "description": "",
+              "group": "group_meta",
               "id": "field_cooking_time",
               "label": "Cooking time",
               "property": false,
@@ -143,6 +144,7 @@ Object {
             "field_preparation_time": Object {
               "cardinality": 1,
               "description": "",
+              "group": "group_meta",
               "id": "field_preparation_time",
               "label": "Preparation time",
               "property": false,
@@ -306,7 +308,26 @@ Object {
             },
           },
         },
-        "groups": null,
+        "groups": Object {
+          "items": Object {
+            "group_meta": Object {
+              "children": Array [
+                "field_preparation_time",
+                "field_cooking_time",
+              ],
+              "format_settings": Object {
+                "classes": "",
+                "id": "meta",
+                "open": true,
+                "required_fields": true,
+              },
+              "format_type": "details",
+              "id": "group_meta",
+              "label": "Meta",
+              "weight": -5,
+            },
+          },
+        },
       },
     },
   },
