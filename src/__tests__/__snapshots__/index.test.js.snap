@@ -332,6 +332,7 @@ exports[`drupalJSONAPIEntities getViewSchema 1`] = `
 Object {
   "field_cooking_time": Object {
     "description": "",
+    "group": "group_meta",
     "id": "field_cooking_time",
     "label": "Cooking time",
     "labelPosition": "above",
@@ -422,6 +423,7 @@ Object {
   },
   "field_preparation_time": Object {
     "description": "",
+    "group": "group_meta",
     "id": "field_preparation_time",
     "label": "Preparation time",
     "labelPosition": "above",

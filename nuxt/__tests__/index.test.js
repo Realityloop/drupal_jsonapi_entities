@@ -1,6 +1,7 @@
 jest.setTimeout(60000)
 
 import mockEntityFormDisplay from '../../src/resources/__fixtures__/entity_form_display'
+import mockEntityViewDisplay from '../../src/resources/__fixtures__/entity_view_display'
 import mockFieldConfig from '../../src/resources/__fixtures__/field_config'
 import mockFieldStorageConfig from '../../src/resources/__fixtures__/field_storage_config'
 
@@ -17,6 +18,7 @@ axios.create.mockReturnValue({
   post: () => ({
     data: {
       'node--recipe--default--entity_form_display': { body: JSON.stringify(mockEntityFormDisplay) },
+      'node--recipe--default--entity_view_display': { body: JSON.stringify(mockEntityViewDisplay) },
       'node--recipe--field_config': { body: JSON.stringify(mockFieldConfig) },
       'node--field_storage_config': { body: JSON.stringify(mockFieldStorageConfig) }
     }

@@ -1,6 +1,6 @@
 import schemaBase from './schemaBase'
 
-import entityViewDisplay from "./resources/entityViewDisplay"
+import entityViewDisplay from './resources/entityViewDisplay'
 import fieldConfig from './resources/fieldConfig'
 
 class viewSchema extends schemaBase {
@@ -34,6 +34,10 @@ class viewSchema extends schemaBase {
     }
 
     return fields
+  }
+
+  processGroups() {
+    return this.resources[0].groups
   }
 }
 
