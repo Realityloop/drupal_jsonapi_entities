@@ -54,8 +54,8 @@ export default async function (options = {}) {
           const method = type === 'form' ? 'getFormSchema' : 'getViewSchema'
           const schema = await drupalEntities[method](entityType, bundle, mode)
           schemas[entityType][bundle][type][mode] = {
-            fields: schema.fields,
-            groups: schema.groups
+            fields: schema.fields.items,
+            groups: schema.groups.items
           }
         }
       }
