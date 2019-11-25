@@ -1,6 +1,6 @@
 {
   "name": "drupal_jsonapi_entities",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Drupal JSON:API Entities",
   "main": "src/index.js",
   "scripts": {
@@ -34,6 +34,11 @@
     "@babel/runtime": "^7.5.5",
     "eslint": "^6.0.1",
     "jest": "^24.8.0",
-    "nodemon": "^1.19.1"
+    "nodemon": "^1.19.1",
+    "nuxt-edge": "^2.10.0-26147532.7b315534"
+  },
+  "jest": {
+    "coverageDirectory": "./coverage/",
+    "collectCoverage": true
   }
 }

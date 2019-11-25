@@ -1,6 +1,6 @@
-import requiredResource from './requiredResource'
+import resourceBase from './resourceBase'
 
-class fieldConfig extends requiredResource {
+class fieldConfig extends resourceBase {
   get requestId() {
     return `${this.entityType}--${this.bundle}--field_config`
   }
@@ -13,21 +13,24 @@ class fieldConfig extends requiredResource {
     return `administer ${this.entityType} fields`
   }
 
-  process(data) {
+  processFields(json) {
+    const fields = {}
+
     // @TODO - Validate data.
-    for (const fieldConfig of data) {
+    for (const fieldConfig of json) {
       const field = fieldConfig.field_name
 
-      // Skip field if it doesn't already exist from Entity Form Display.
-      if (!this.schema.fieldExists(field)) continue
-
-      this.schema.fieldAdd(field, {
+      fields[field] = {
+        id: field,
+        property: false,
         label: fieldConfig.label,
         description: fieldConfig.description,
         required: fieldConfig.required,
         settings: fieldConfig.settings
-      })
+      }
     }
+
+    return fields
   }
 }
 

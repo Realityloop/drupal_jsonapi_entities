@@ -11,6 +11,10 @@ jobs:
     steps:
       - checkout
 
+      - run:
+          name: Install Codecov
+          command: npm install codecov
+
       - restore_cache:
           keys:
           - v1-dependencies-{{ checksum "package.json" }}
@@ -21,6 +25,10 @@ jobs:
       - run:
           name: Run tests
           command: npm test
+
+      - run:
+          name: Upload coverage report
+          command: npx codecov
 
       - save_cache:
           paths:
