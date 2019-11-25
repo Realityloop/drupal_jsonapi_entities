@@ -38,6 +38,7 @@ describe('drupalJSONAPIEntities', () => {
 
     const schema = await instance.getFormSchema('node', 'recipe')
     expect(schema.fields.items).toMatchSnapshot()
+    expect(schema.groups.items).toMatchSnapshot()
     expect(schema.keys).toMatchSnapshot()
   })
 
@@ -50,6 +51,7 @@ describe('drupalJSONAPIEntities', () => {
 
     const schema = await instance.getViewSchema('node', 'recipe')
     expect(schema.fields.items).toMatchSnapshot()
+    expect(schema.groups.items).toMatchSnapshot()
     expect(schema.keys).toMatchSnapshot()
   })
 })

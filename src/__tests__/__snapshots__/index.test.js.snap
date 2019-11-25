@@ -305,6 +305,27 @@ Object {
 `;
 
 exports[`drupalJSONAPIEntities getFormSchema 2`] = `
+Object {
+  "group_meta": Object {
+    "children": Array [
+      "field_preparation_time",
+      "field_cooking_time",
+    ],
+    "format_settings": Object {
+      "classes": "",
+      "id": "meta",
+      "open": true,
+      "required_fields": true,
+    },
+    "format_type": "details",
+    "id": "group_meta",
+    "label": "Meta",
+    "weight": -5,
+  },
+}
+`;
+
+exports[`drupalJSONAPIEntities getFormSchema 3`] = `
 Array [
   "created",
   "field_author",
@@ -539,6 +560,27 @@ Object {
 `;
 
 exports[`drupalJSONAPIEntities getViewSchema 2`] = `
+Object {
+  "group_meta": Object {
+    "children": Array [
+      "field_preparation_time",
+      "field_cooking_time",
+    ],
+    "format_settings": Object {
+      "classes": "",
+      "id": "meta",
+      "open": true,
+      "required_fields": true,
+    },
+    "format_type": "details",
+    "id": "group_meta",
+    "label": "Meta",
+    "weight": -5,
+  },
+}
+`;
+
+exports[`drupalJSONAPIEntities getViewSchema 3`] = `
 Array [
   "field_cooking_time",
   "field_difficulty",
