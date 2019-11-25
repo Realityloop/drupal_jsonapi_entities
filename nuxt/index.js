@@ -28,29 +28,43 @@ export default async function (options = {}) {
     if (Array.isArray(entityTypeBundles)) {
       entityTypeBundles = {}
       for (const bundle of entities[entityType]) {
-        entityTypeBundles[bundle] = ['form', 'view']
+        entityTypeBundles[bundle] = {
+          form: ['default'],
+          view: ['default']
+        }
       }
       entities[entityType] = { ...entityTypeBundles }
     }
 
+    // Iterate over bundles.
     for (const bundle in entityTypeBundles) {
       schemas[entityType][bundle] = {}
 
-      // If Types are an array, change to an object and set default modes.
+      // If Schema types are an array, change to an object and set default modes.
       if (Array.isArray(entityTypeBundles[bundle])) {
         entityTypeBundles[bundle] = {}
-        for (const type of entities[entityType][bundle]) {
-          entityTypeBundles[bundle][type] = ['default']
+
+        // Ensure valid Schema types configuration.
+        if (!Array.isArray(entities[entityType][bundle])) {
+          throw new Error('Drupal JSON:API Entitites: Invalid Schema types configuration.')
+        }
+
+        for (const schemaType of entities[entityType][bundle]) {
+          entityTypeBundles[bundle][schemaType] = ['default']
         }
         entities[entityType][bundle] = { ...entityTypeBundles[bundle] }
       }
 
+      // Iterate over types.
       for (const type of ['form', 'view']) {
         if (typeof entityTypeBundles[bundle][type] === 'undefined') continue
         schemas[entityType][bundle][type] = {}
 
+        // Iterate over modes.
         const modes = entityTypeBundles[bundle][type]
         for (const mode of modes) {
+
+          // Build schema data and add to results.
           const method = type === 'form' ? 'getFormSchema' : 'getViewSchema'
           const schema = await drupalEntities[method](entityType, bundle, mode)
           schemas[entityType][bundle][type][mode] = {
