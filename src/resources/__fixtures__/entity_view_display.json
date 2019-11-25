@@ -11,8 +11,8 @@
   },
   "data":[
     {
-      "type":"entity_form_display--entity_form_display",
-      "id":"7e1dc4b1-2e99-4f27-9394-538391dab930",
+      "type":"entity_view_display--entity_view_display",
+      "id":"1ee42ea1-ab79-421f-a6e6-bc2b0f12b21b",
       "attributes":{
         "langcode":"en",
         "status":true,
@@ -29,7 +29,8 @@
             "field.field.node.recipe.field_recipe_instruction",
             "field.field.node.recipe.field_summary",
             "field.field.node.recipe.field_tags",
-            "node.type.recipe"
+            "node.type.recipe",
+            "responsive_image.styles.3_2_image"
           ],
           "enforced":{
             "module":[
@@ -37,9 +38,10 @@
             ]
           },
           "module":[
-            "media_library",
-            "path",
-            "text"
+            "options",
+            "responsive_image",
+            "text",
+            "user"
           ]
         },
         "third_party_settings":{
@@ -67,242 +69,168 @@
         "bundle":"recipe",
         "mode":"default",
         "content":{
-          "created":{
-            "type":"datetime_timestamp",
-            "weight":13,
-            "region":"content",
-            "settings":[
-
-            ],
-            "third_party_settings":[
-
-            ]
-          },
-          "field_author":{
-            "weight":1,
-            "settings":{
-              "match_operator":"CONTAINS",
-              "size":60,
-              "placeholder":""
-            },
-            "third_party_settings":[
-
-            ],
-            "type":"entity_reference_autocomplete",
-            "region":"content"
-          },
           "field_cooking_time":{
-            "weight":3,
+            "weight":1,
+            "label":"above",
             "settings":{
-              "placeholder":""
+              "thousand_separator":"",
+              "prefix_suffix":true
             },
             "third_party_settings":[
 
             ],
-            "type":"number",
+            "type":"number_integer",
             "region":"content"
           },
           "field_difficulty":{
-            "weight":5,
+            "weight":2,
+            "label":"above",
             "settings":[
 
             ],
             "third_party_settings":[
 
             ],
-            "type":"options_select",
+            "type":"list_default",
             "region":"content"
           },
           "field_image":{
-            "weight":8,
+            "weight":3,
+            "label":"hidden",
             "settings":{
-              "media_types":[
-
-              ]
+              "responsive_image_style":"3_2_image",
+              "image_link":""
             },
             "third_party_settings":[
 
             ],
-            "type":"media_library_widget",
+            "type":"responsive_image",
             "region":"content"
           },
           "field_ingredients":{
-            "weight":10,
+            "weight":4,
+            "label":"above",
             "settings":{
-              "size":60,
-              "placeholder":""
+              "link_to_entity":false
             },
             "third_party_settings":[
 
             ],
-            "type":"string_textfield",
+            "type":"string",
             "region":"content"
           },
           "field_number_of_servings":{
-            "weight":4,
+            "weight":5,
+            "label":"above",
             "settings":{
-              "placeholder":""
+              "thousand_separator":"",
+              "prefix_suffix":true
             },
             "third_party_settings":[
 
             ],
-            "type":"number",
+            "type":"number_integer",
             "region":"content"
           },
           "field_preparation_time":{
-            "weight":2,
+            "weight":6,
+            "label":"above",
             "settings":{
-              "placeholder":""
+              "thousand_separator":"",
+              "prefix_suffix":true
             },
             "third_party_settings":[
 
             ],
-            "type":"number",
+            "type":"number_integer",
             "region":"content"
           },
           "field_recipe_category":{
-            "weight":6,
+            "weight":7,
+            "label":"above",
+            "settings":{
+              "link":true
+            },
+            "third_party_settings":[
+
+            ],
+            "type":"entity_reference_label",
+            "region":"content"
+          },
+          "field_recipe_instruction":{
+            "weight":8,
+            "label":"above",
             "settings":[
 
             ],
             "third_party_settings":[
 
             ],
-            "type":"options_select",
-            "region":"content"
-          },
-          "field_recipe_instruction":{
-            "weight":11,
-            "settings":{
-              "rows":5,
-              "placeholder":""
-            },
-            "third_party_settings":[
-
-            ],
-            "type":"text_textarea",
+            "type":"text_default",
             "region":"content"
           },
           "field_summary":{
             "weight":9,
-            "settings":{
-              "rows":5,
-              "placeholder":""
-            },
-            "third_party_settings":[
-
-            ],
-            "type":"text_textarea",
-            "region":"content"
-          },
-          "field_tags":{
-            "weight":7,
-            "settings":{
-              "match_operator":"CONTAINS",
-              "size":60,
-              "placeholder":""
-            },
-            "third_party_settings":[
-
-            ],
-            "type":"entity_reference_autocomplete_tags",
-            "region":"content"
-          },
-          "langcode":{
-            "type":"language_select",
-            "weight":2,
-            "region":"content",
-            "settings":{
-              "include_locked":true
-            },
-            "third_party_settings":[
-
-            ]
-          },
-          "path":{
-            "type":"path",
-            "weight":16,
-            "region":"content",
+            "label":"hidden",
             "settings":[
 
             ],
             "third_party_settings":[
 
-            ]
+            ],
+            "type":"text_default",
+            "region":"content"
           },
-          "promote":{
-            "type":"boolean_checkbox",
+          "field_tags":{
+            "weight":10,
+            "label":"above",
             "settings":{
-              "display_label":true
+              "link":true
             },
-            "weight":14,
-            "region":"content",
             "third_party_settings":[
 
-            ]
+            ],
+            "type":"entity_reference_label",
+            "region":"content"
           },
-          "status":{
-            "type":"boolean_checkbox",
-            "settings":{
-              "display_label":true
-            },
-            "weight":17,
+          "links":{
+            "weight":0,
             "region":"content",
-            "third_party_settings":[
+            "settings":[
 
-            ]
-          },
-          "sticky":{
-            "type":"boolean_checkbox",
-            "settings":{
-              "display_label":true
-            },
-            "weight":15,
-            "region":"content",
+            ],
             "third_party_settings":[
 
             ]
           },
           "title":{
-            "type":"string_textfield",
-            "weight":0,
+            "label":"hidden",
+            "type":"string",
+            "weight":-5,
             "region":"content",
             "settings":{
-              "size":60,
-              "placeholder":""
+              "link_to_entity":false
             },
-            "third_party_settings":[
-
-            ]
-          },
-          "uid":{
-            "type":"entity_reference_autocomplete",
-            "weight":12,
-            "settings":{
-              "match_operator":"CONTAINS",
-              "size":60,
-              "placeholder":""
-            },
-            "region":"content",
             "third_party_settings":[
 
             ]
           }
         },
-        "hidden":[
-
-        ]
+        "hidden":{
+          "field_author":true,
+          "langcode":true
+        }
       },
       "links":{
         "self":{
-          "href":"http:\/\/example.com\/api\/entity_form_display\/entity_form_display\/7e1dc4b1-2e99-4f27-9394-538391dab930"
+          "href":"http:\/\/example.com\/api\/entity_view_display\/entity_view_display\/1ee42ea1-ab79-421f-a6e6-bc2b0f12b21b"
         }
       }
     }
   ],
   "links":{
     "self":{
-      "href":"http:\/\/example.com\/api\/entity_form_display\/entity_form_display?filter%5Bdrupal_internal__id%5D=node.recipe.default"
+      "href":"http:\/\/example.com\/api\/entity_view_display\/entity_view_display?filter%5Bdrupal_internal__id%5D=node.recipe.default"
     }
   }
 }

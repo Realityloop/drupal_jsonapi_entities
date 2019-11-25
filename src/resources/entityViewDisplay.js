@@ -1,12 +1,12 @@
 import resourceBase from './resourceBase'
 
-class entityFormDisplay extends resourceBase {
+class entityViewDisplay extends resourceBase {
   get requestId() {
-    return `${this.entityType}--${this.bundle}--${this.mode}--entity_form_display`
+    return `${this.entityType}--${this.bundle}--${this.mode}--entity_view_display`
   }
 
   get uri() {
-    return `/api/entity_form_display/entity_form_display?filter[drupal_internal__id]=${this.entityType}.${this.bundle}.${this.mode}`
+    return `/api/entity_view_display/entity_view_display?filter[drupal_internal__id]=${this.entityType}.${this.bundle}.${this.mode}`
   }
 
   get permission() {
@@ -19,20 +19,20 @@ class entityFormDisplay extends resourceBase {
     // Iterate over the content region and add fields to schema.
     // @TODO - Add support for regions.
     for (const field in json[0].content) {
-      const entityFormDisplay = json[0].content[field]
+      const entityViewDisplay = json[0].content[field]
 
       fields[field] = {
         id: field,
-        type: entityFormDisplay.type,
-        // We assume field is a property, and update value as needed in
-        // fieldConfig::processFields().
-        property: true,
-        weight: entityFormDisplay.weight,
+        labelPosition: entityViewDisplay.label,
+        type: entityViewDisplay.type,
+        weight: entityViewDisplay.weight,
 
-        // Ensure settings is an object, not an array.
-        settings: !Array.isArray(entityFormDisplay.settings)
-          ? entityFormDisplay.settings
+        // Ensure settings are objects, not arrays.
+        settings: !Array.isArray(entityViewDisplay.settings)
+          ? entityViewDisplay.settings
           : {},
+
+        thirdPartySettings: entityViewDisplay.third_party_settings
       }
     }
 
@@ -65,4 +65,4 @@ class entityFormDisplay extends resourceBase {
   }
 }
 
-export default entityFormDisplay
+export default entityViewDisplay

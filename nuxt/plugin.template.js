@@ -4,6 +4,10 @@ import Vue from 'vue'
 // @TODO - Dynamically load from cached JSON files?
 const schemas = <%= JSON.stringify(options.schemas) %>
 
-Vue.prototype.$drupalJSONAPIEntities = () => {
-  return schemas
-}
+Vue.use({
+  install: function (Vue) {
+    Vue.prototype.$drupalJSONAPIEntities = () => {
+      return schemas
+    }
+  }
+})

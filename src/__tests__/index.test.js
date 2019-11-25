@@ -1,6 +1,10 @@
 import axios from 'axios'
 import drupalJSONAPIEntities from '..'
-import getFormSchema from '../__fixtures__/getFormSchema'
+
+import mockEntityFormDisplay from '../resources/__fixtures__/entity_form_display'
+import mockEntityViewDisplay from '../resources/__fixtures__/entity_view_display'
+import mockFieldConfig from '../resources/__fixtures__/field_config'
+import mockFieldStorageConfig from '../resources/__fixtures__/field_storage_config'
 
 // Setup mock axios module.
 jest.mock('axios')
@@ -14,9 +18,9 @@ const axiosMock = mockData => {
 const baseURL = 'https://example.com'
 
 describe('drupalJSONAPIEntities', () => {
-  axiosMock({})
-
   test('constructor', () => {
+    axiosMock({})
+
     // Throw error if 'baseURL' not provided.
     expect(() => { new drupalJSONAPIEntities() }).toThrow('The \'baseURL\' parameter is required.')
 
@@ -25,48 +29,29 @@ describe('drupalJSONAPIEntities', () => {
   })
 
   test('getFormSchema', async () => {
-    axiosMock(getFormSchema)
+    axiosMock({
+      'node--recipe--default--entity_form_display': { body: JSON.stringify(mockEntityFormDisplay) },
+      'node--recipe--field_config': { body: JSON.stringify(mockFieldConfig) },
+      'node--field_storage_config': { body: JSON.stringify(mockFieldStorageConfig) }
+    })
+    const instance = new drupalJSONAPIEntities(baseURL)
 
-    const entities = new drupalJSONAPIEntities(baseURL)
-    const schema = await entities.getFormSchema('node', 'recipe')
-    expect(schema).toHaveProperty('fields')
+    const schema = await instance.getFormSchema('node', 'recipe')
+    expect(schema.fields.items).toMatchSnapshot()
+    expect(schema.groups.items).toMatchSnapshot()
+    expect(schema.keys).toMatchSnapshot()
   })
 
-  test('getSubrequests', async () => {
-    // Test subrequest error.
+  test('getViewSchema', async () => {
     axiosMock({
-      test: {
-        body: JSON.stringify({
-          errors: [{
-            status: 500,
-            title: 'Test error',
-            detail: 'Test failed successfully'
-          }]
-        })
-      }
+      'node--recipe--default--entity_view_display': { body: JSON.stringify(mockEntityViewDisplay) },
+      'node--recipe--field_config': { body: JSON.stringify(mockFieldConfig) }
     })
-    try {
-      await new drupalJSONAPIEntities(baseURL).getSubrequests({})
-    } catch (err) {
-      expect(err.message).toBe('500 Test error: Test failed successfully')
-    }
+    const instance = new drupalJSONAPIEntities(baseURL)
 
-    // Test permission errors.
-    axiosMock({
-      test: {
-        body: JSON.stringify({
-          meta: {
-            omitted: {
-              detail: 'Test permission error'
-            }
-          }
-        })
-      }
-    })
-    try {
-      await new drupalJSONAPIEntities(baseURL).getSubrequests({})
-    } catch (err) {
-      expect(err.message).toBe('Test permission error')
-    }
+    const schema = await instance.getViewSchema('node', 'recipe')
+    expect(schema.fields.items).toMatchSnapshot()
+    expect(schema.groups.items).toMatchSnapshot()
+    expect(schema.keys).toMatchSnapshot()
   })
 })

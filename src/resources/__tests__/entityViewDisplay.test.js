@@ -1,18 +1,18 @@
 import deserialize from '../../utils/deserialize'
-import fieldStorageConfig from '../fieldStorageConfig'
-import json from '../__fixtures__/field_storage_config'
+import entityViewDisplay from '../entityViewDisplay'
+import json from '../__fixtures__/entity_view_display'
 
-const resource = new fieldStorageConfig({
+const resource = new entityViewDisplay({
   entityType: 'node',
   bundle: 'recipe',
   mode: 'default',
 })
 
-describe('Field storage config', () => {
+describe('Entity view display', () => {
   test('Resource', () => {
     const subrequest = {
-      requestId: 'node--field_storage_config',
-      uri: '/api/field_storage_config/field_storage_config?filter[entity_type]=node',
+      requestId: 'node--recipe--default--entity_view_display',
+      uri: '/api/entity_view_display/entity_view_display?filter[drupal_internal__id]=node.recipe.default',
       action: 'view',
       headers: {}
     }
@@ -20,7 +20,7 @@ describe('Field storage config', () => {
     expect(resource.uri).toBe(subrequest.uri)
     expect(resource.action).toBe(subrequest.action)
     expect(resource.subrequest).toStrictEqual(subrequest)
-    expect(resource.permission).toBe('administer node fields')
+    expect(resource.permission).toBe('administer display modes')
   })
 
   test('Process', async () => {
@@ -32,13 +32,14 @@ describe('Field storage config', () => {
 
     // Check for valid results.
     expect(resource.fields.field_ingredients).toStrictEqual({
-      cardinality: -1,
       id: 'field_ingredients',
+      labelPosition: 'above',
       settings: {
-        case_sensitive: false,
-        is_ascii: false,
-        max_length: 255,
-      }
+        link_to_entity: false,
+      },
+      thirdPartySettings: [],
+      type: 'string',
+      weight: 4,
     })
   })
 })

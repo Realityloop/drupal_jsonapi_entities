@@ -1,10 +1,10 @@
 'use strict'
 
 import axios from 'axios'
-import { Deserializer } from 'jsonapi-serializer'
 
 import auth from './auth'
-import getFormSchema from './getFormSchema'
+import formSchema from './formSchema'
+import viewSchema from './viewSchema'
 import requiredResources from './requiredResources'
 
 // @TODO - Tests
@@ -50,8 +50,8 @@ class drupalJSONAPIEntities {
     }
 
     // Setup Axios.
-    this._axios = axios.create({ baseURL })
-    this._axios.interceptors.request.use(async request => {
+    this.axios = axios.create({ baseURL })
+    this.axios.interceptors.request.use(async request => {
       // Authorize the request.
       // @TODO - Add support for other auth methods?
       if (typeof options.auth !== 'undefined' && request.url.startsWith('subrequests')) {
@@ -66,11 +66,6 @@ class drupalJSONAPIEntities {
       return request
     })
 
-    // Setup JSON API Deserializer.
-    this.deserializer = new Deserializer({
-      keyForAttribute: 'underscore_case'
-    })
-
     // Setup options, using default if not provided.
     this.options = Object.assign(defaultOptions(), options)
     // @TODO: options.resources isn't in use yet, or documented. It should be
@@ -80,33 +75,15 @@ class drupalJSONAPIEntities {
   }
 
   async getFormSchema(entityType, bundle, mode = 'default') {
-    return getFormSchema(entityType, bundle, mode, { root: this })
+    const schema = new formSchema({ entityType, bundle, mode, axios: this.axios })
+    await schema.build()
+    return schema
   }
 
-  async getSubrequests(subrequests) {
-    // @TODO - Validate results.
-    //   - Ensure expected resource type is returned.
-    const results = await this._axios.post('subrequests?_format=json', subrequests)
-
-    for (const subrequest in results.data) {
-      const result = JSON.parse(results.data[subrequest].body)
-
-      // If error, throw error.
-      if (typeof result.errors !== 'undefined') {
-        throw new Error(`${result.errors[0].status} ${result.errors[0].title}: ${result.errors[0].detail}`)
-      }
-
-      // Throw error if any items are omitted.
-      // @TODO - Add better error handiling.
-      // - Display information about required permissions.
-      if (result.meta && typeof result.meta.omitted !== 'undefined') {
-        throw new Error(result.meta.omitted.detail)
-      }
-
-      results.data[subrequest] = await this.deserializer.deserialize(result)
-    }
-
-    return results.data
+  async getViewSchema(entityType, bundle, mode = 'default') {
+    const schema = new viewSchema({ entityType, bundle, mode, axios: this.axios })
+    await schema.build()
+    return schema
   }
 
 }
