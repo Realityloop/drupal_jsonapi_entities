@@ -1,8 +1,12 @@
 import deserialze from './deserialize'
 
 class Subrequest {
-  constructor(config) {
-    this.axios = config.axios
+  constructor(axios) {
+    if (typeof axios === 'undefined') {
+      throw new Error('Axios is required.')
+    }
+
+    this.axios = axios
     this.requests = []
   }
 
