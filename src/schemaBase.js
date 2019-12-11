@@ -43,7 +43,7 @@ class schemaBase {
   }
 
   async getData() {
-    const subrequest = new Subrequest({ axios: this.axios })
+    const subrequest = new Subrequest(this.axios)
     for (const resource of this.resources) {
       subrequest.requests.push(resource.subrequest)
     }
