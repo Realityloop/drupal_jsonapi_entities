@@ -29,9 +29,14 @@ class fieldConfig extends resourceBase {
     for (const fieldConfig of json) {
       const field = fieldConfig.field_name
 
+      let relationship = false
+      if (['entity_reference', 'file', 'image'].includes(fieldConfig.field_type)) {
+        relationship = true
+      }
       fields[field] = {
         id: field,
         property: false,
+        relationship,
         label: fieldConfig.label,
         description: fieldConfig.description,
         required: fieldConfig.required,
