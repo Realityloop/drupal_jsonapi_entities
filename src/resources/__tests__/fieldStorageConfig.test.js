@@ -24,6 +24,9 @@ describe('Field storage config', () => {
   })
 
   test('Process', async () => {
+    // Test JSON validation.
+    expect(() => { resource.process([{}]) }).toThrow('Invalid JSON for node--field_storage_config')
+
     // Deserialize mock data.
     const deserializedJson = await deserialize(json)
 

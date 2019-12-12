@@ -13,6 +13,15 @@ class fieldStorageConfig extends resourceBase {
     return `administer ${this.entityType} fields`
   }
 
+  validateJson(json) {
+    for (const key of ['field_name', 'cardinality', 'settings']) {
+      if (typeof json[0][key] === 'undefined') {
+        return false
+      }
+    }
+    return true
+  }
+
   processFields(json) {
     const fields = {}
 
