@@ -24,6 +24,9 @@ describe('Field config', () => {
   })
 
   test('Process', async () => {
+    // Test JSON validation.
+    expect(() => { resource.process([{}]) }).toThrow('Invalid JSON for node--recipe--field_config')
+
     // Deserialize mock data.
     const deserializedJson = await deserialize(json)
 

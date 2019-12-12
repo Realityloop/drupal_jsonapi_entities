@@ -24,6 +24,9 @@ describe('Entity view display', () => {
   })
 
   test('Process', async () => {
+    // Test JSON validation.
+    expect(() => { resource.process([{ content: { test: {} } }]) }).toThrow('Invalid JSON for node--recipe--default--entity_view_display')
+
     // Deserialize mock data.
     const deserializedJson = await deserialize(json)
 

@@ -13,6 +13,16 @@ class entityViewDisplay extends resourceBase {
     return 'administer display modes'
   }
 
+  validateJson(json) {
+    const item = json[0].content[Object.keys(json[0].content)[0]]
+    for (const key of ['label', 'type', 'weight', 'settings']) {
+      if (typeof item[key] === 'undefined') {
+        return false
+      }
+    }
+    return true
+  }
+  
   processFields(json) {
     const fields = {}
 

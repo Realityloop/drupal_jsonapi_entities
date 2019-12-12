@@ -29,7 +29,7 @@ class resourceBase {
   process(json) {
     // Validate data if callback is available.
     if (typeof this.validateJson === 'function' && !this.validateJson(json)) {
-      return false
+      throw new Error(`Invalid JSON for ${this.requestId}`)
     }
 
     // Stub the result object.

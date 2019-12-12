@@ -26,8 +26,9 @@ test('Required resource', () => {
   expect(resource.groups).toStrictEqual({})
 
   // Test 'process' with false validation callback.
+  resource.requestId = 'test'
   resource.validateJson = () => false
-  expect(resource.process()).toBe(false)
+  expect(() => { resource.process() }).toThrow('Invalid JSON for test')
 
   // Test 'process' with custom callbacks and data.
   resource.validateJson = () => true
