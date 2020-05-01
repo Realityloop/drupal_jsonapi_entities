@@ -7,7 +7,9 @@
     "lint": "eslint src/**/*.js",
     "start": "npm run dev",
     "dev": "nodemon --exec 'npm run lint && npm run test && babel-node' src/index.js",
-    "test": "jest"
+    "test": "jest",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -24,7 +26,8 @@
   "dependencies": {
     "axios": "^0.19.0",
     "jsonapi-serializer": "^3.6.4",
-    "simple-oauth2": "^2.2.1"
+    "simple-oauth2": "^2.2.1",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "@babel/core": "^7.5.4",
@@ -40,5 +43,6 @@
   "jest": {
     "coverageDirectory": "./coverage/",
     "collectCoverage": true
-  }
+  },
+  "snyk": true
 }
