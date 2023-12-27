@@ -22,7 +22,7 @@
   "author": "Stuart Clark <stuart@realityloop.com>",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.19.0",
+    "axios": "^1.6.3",
     "jsonapi-serializer": "^3.6.4",
     "simple-oauth2": "^2.2.1"
   },
